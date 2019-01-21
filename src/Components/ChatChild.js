@@ -1,7 +1,7 @@
 import React from "react";
 import io from "socket.io-client";
 
-class Chat extends React.Component{
+class ChatChild extends React.Component{
     constructor(props){
         super(props);
 
@@ -11,28 +11,35 @@ class Chat extends React.Component{
             messages: []
         };
 
+
         this.socket = io('localhost:5000');
+
 
         this.socket.on('RECEIVE_MESSAGE', function(data){
             addMessage(data);
         });
 
         const addMessage = data => {
-            console.log(data);
             this.setState({messages: [...this.state.messages, data]});
-            console.log(this.state.messages);
         };
 
         this.sendMessage = ev => {
+            console.log('sendMessage')
             ev.preventDefault();
             this.socket.emit('SEND_MESSAGE', {
-                author: this.state.username,
-                message: this.state.message
+                author: this.props.userName,
+                message: this.state.message,
+                room: this.props.room
             })
             this.setState({message: ''});
 
         }
     }
+    componentDidMount() {
+        if (this.props.room) {
+          this.socket.emit("join room", { room: this.props.room });
+        }
+      }
     render(){
         return (
             <div className="container">
@@ -43,16 +50,20 @@ class Chat extends React.Component{
                                 <div className="card-title">Global Chat</div>
                                 <hr/>
                                 <div className="messages">
-                                    {this.state.messages.map(message => {
+                                    {this.state.messages.map((message, index) => {
                                         return (
-                                            <div>{message.author}: {message.message}</div>
+                                            <div key={index}>{message.author}: {message.message}</div>
                                         )
                                     })}
                                 </div>
 
                             </div>
                             <div className="card-footer">
-                                <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/>
+                                {/* <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/> */}
+                                <h3>User Name:</h3>
+                                <h4>{this.props.userName}</h4>
+                                <h3>Room:</h3>
+                                <h4>{this.props.room}</h4>
                                 <br/>
                                 <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
                                 <br/>
@@ -66,4 +77,4 @@ class Chat extends React.Component{
     }
 }
 
-export default Chat;
+export default ChatChild;
