@@ -6,7 +6,8 @@ export default class ChatParent extends Component {
     super(props);
     this.state = {
       userName: "None Selected",
-      room:'Test',
+      room:'Room 1',
+      previousRoom:'Room 1',
       userGroupsSubscribed: [],
       userConversations: [],
       userFriends: []
@@ -30,6 +31,7 @@ export default class ChatParent extends Component {
   changeRoom(event) {
     if(event.target.value !== "Select"){
         this.setState({
+            previousRoom: this.state.room,
             room: event.target.value
         });
     }
@@ -57,8 +59,9 @@ export default class ChatParent extends Component {
 
         </div>
         <ChatChild
-          // userName={this.state.userName}
+          userName={this.state.userName}
           room = {this.state.room}
+          previousRoom = {this.state.previousRoom}
           // room = {'testroom'}
         />
       </div>

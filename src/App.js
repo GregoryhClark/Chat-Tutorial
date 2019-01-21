@@ -7,12 +7,10 @@ class App extends Component {
   render() {
     return (
       <div>
-          <ChatChild room = {'hardCodedRoom1'} />
-          <ChatChild room = {'hardCodedRoom2'} />
-
-
-          <br />
-          <hr />
+          {/* <ChatChild room = {'hardCodedRoom1'} />
+          <ChatChild room = {'hardCodedRoom2'} /> */}
+           {/* <br />
+           <hr /> */}
           <ChatParent/>
 
       </div>

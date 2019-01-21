@@ -40,6 +40,10 @@ io.on('connection', (socket) => {
         // console.log('joined room ', data.room)
         io.to(data.room).emit('room joined', data)
     })
+    socket.on("leave room", data => {
+        socket.leave(data.room)
+
+    })
 
     socket.on('emit message to room', data => {
         console.log('room socket hit: emit ', data.room)
