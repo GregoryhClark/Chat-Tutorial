@@ -6,7 +6,7 @@ export default class ChatParent extends Component {
     super(props);
     this.state = {
       userName: "None Selected",
-      room:'Global',
+      room:'Test',
       userGroupsSubscribed: [],
       userConversations: [],
       userFriends: []
@@ -37,6 +37,7 @@ export default class ChatParent extends Component {
   }
 
   render() {
+    console.log('the room on state is',this.state.room)
     return (
       <div>
         <div className="conversationsList">
@@ -56,8 +57,9 @@ export default class ChatParent extends Component {
 
         </div>
         <ChatChild
-          userName={this.state.userName}
+          // userName={this.state.userName}
           room = {this.state.room}
+          // room = {'testroom'}
         />
       </div>
     );

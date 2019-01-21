@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import ChatParent from "./Components/ChatParent";
+import ChatChild from './Components/ChatChild';
 // import {HashRouter, Route, Switch} from 'react-router-dom';
 
 class App extends Component {
   render() {
     return (
       <div>
-        {/* <HashRouter>
-          <Switch>
-            <Route exact path = '/' component={Home}/>
-            <Route exact path = '/dash' component={Dash}/>
-            <Route exact path = '/about' component={About}/>
-          </Switch>
-        </HashRouter> */}
+          <ChatChild room = {'hardCodedRoom1'} />
+          <ChatChild room = {'hardCodedRoom2'} />
+
+
+          <br />
+          <hr />
           <ChatParent/>
+
       </div>
     );
   }
